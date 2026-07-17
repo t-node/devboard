@@ -16,8 +16,11 @@ jobs:
         with:
           username: ${{ vars.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-   build-and-push:
-     needs: [code]
+  build-and-push:
+    needs: [code]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Docker Build
         uses: docker/build-push-action@v7
         with:
           context: ./frontend                          # Uses the code checked out by actions/checkout
