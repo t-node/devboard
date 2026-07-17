@@ -16,7 +16,8 @@ jobs:
         with:
           username: ${{ vars.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Build and Push
+   build-and-push:
+     needs: [code]
         uses: docker/build-push-action@v7
         with:
           context: ./frontend                          # Uses the code checked out by actions/checkout
