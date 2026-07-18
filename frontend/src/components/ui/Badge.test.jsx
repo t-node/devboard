@@ -1,31 +1,31 @@
-import { describe, it, expect } from 'vitest';
-import { render, screen } from '@testing-library/react';
-import { StatusBadge, PriorityBadge } from './Badge';
+import { describe, it, expect } from "vitest";
+import { render, screen } from "@testing-library/react";
+import { StatusBadge, PriorityBadge } from "./Badge";
 
-describe('StatusBadge', () => {
+describe("StatusBadge", () => {
   it.each([
-    ['done',        'done'],
-    ['in_progress', 'in progress'],
-    ['blocked',     'blocked'],
-    ['todo',        'todo'],
-  ])('renders the %s status with the right label', (status, label) => {
+    ["done", "done"],
+    ["in_progress", "in progress"],
+    ["blocked", "blocked"],
+    ["todo", "todo"],
+  ])("renders the %s status with the right label", (status, label) => {
     render(<StatusBadge status={status} />);
     expect(screen.getByText(label)).toBeInTheDocument();
   });
 
-  it('falls back to the todo style for unknown statuses', () => {
+  it("falls back to the todo style for unknown statuses", () => {
     render(<StatusBadge status="something-weird" />);
     // unknown status maps to todo style/label
-    expect(screen.getByText('todo')).toBeInTheDocument();
+    expect(screen.getByText("todo")).toBeInTheDocument();
   });
 });
 
-describe('PriorityBadge', () => {
+describe("PriorityBadge", () => {
   it.each([
-    ['high',   'high'],
-    ['medium', 'medium'],
-    ['low',    'low'],
-  ])('renders %s priority', (priority, label) => {
+    ["high", "high"],
+    ["medium", "medium"],
+    ["low", "low"],
+  ])("renders %s priority", (priority, label) => {
     render(<PriorityBadge priority={priority} />);
     expect(screen.getByText(label)).toBeInTheDocument();
   });
