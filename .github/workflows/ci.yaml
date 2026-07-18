@@ -23,12 +23,14 @@ jobs:
         working-directory: ./frontend
         run: npm ci
 
-      - name: Run linters
-        uses: wearerequired/lint-action@v2
-        with:
-          eslint: true
-          prettier: true
-       
+      - name: Run ESLint
+        working-directory: ./frontend
+        run: npm run lint
+
+      - name: Check Prettier formatting
+        working-directory: ./frontend
+        run: npx prettier --check .
+
   build-and-push:
     needs: [code-lint]
     runs-on: ubuntu-latest
@@ -43,7 +45,7 @@ jobs:
       - name: Docker Build
         uses: docker/build-push-action@v7
         with:
-          context: ./frontend                          # Uses the code checked out by actions/checkout
-          file: ./frontend/Dockerfile   
+          context: ./frontend # Uses the code checked out by actions/checkout
+          file: ./frontend/Dockerfile
           push: true
           tags: ${{ vars.DOCKERHUB_USERNAME }}/devboard-fe-master:latest
