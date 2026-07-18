@@ -1,14 +1,14 @@
-import { useState } from 'react';
-import { IconX } from '@tabler/icons-react';
-import { Button } from '../ui/Button';
-import { Input } from '../ui/Input';
-import { useCreateTask } from '../../hooks/useTasks';
+import { useState } from "react";
+import { IconX } from "@tabler/icons-react";
+import { Button } from "../ui/Button";
+import { Input } from "../ui/Input";
+import { useCreateTask } from "../../hooks/useTasks";
 
 export function TaskCreateModal({ projectId, open, onClose }) {
-  const [title, setTitle] = useState('');
-  const [priority, setPriority] = useState('medium');
-  const [status, setStatus] = useState('todo');
-  const [description, setDescription] = useState('');
+  const [title, setTitle] = useState("");
+  const [priority, setPriority] = useState("medium");
+  const [status, setStatus] = useState("todo");
+  const [description, setDescription] = useState("");
   const create = useCreateTask(projectId);
 
   if (!open) return null;
@@ -17,8 +17,8 @@ export function TaskCreateModal({ projectId, open, onClose }) {
     e.preventDefault();
     if (!title.trim()) return;
     await create.mutateAsync({ title, priority, status, description });
-    setTitle('');
-    setDescription('');
+    setTitle("");
+    setDescription("");
     onClose();
   }
 
@@ -27,7 +27,10 @@ export function TaskCreateModal({ projectId, open, onClose }) {
       <div className="db-card w-full max-w-md p-5 rounded-lg">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-[16px] font-semibold">New task</h2>
-          <button onClick={onClose} className="text-ink-400 hover:text-ink-950 dark:hover:text-white">
+          <button
+            onClick={onClose}
+            className="text-ink-400 hover:text-ink-950 dark:hover:text-white"
+          >
             <IconX size={18} />
           </button>
         </div>
@@ -49,8 +52,14 @@ export function TaskCreateModal({ projectId, open, onClose }) {
           />
           <div className="grid grid-cols-2 gap-3">
             <label className="block">
-              <span className="block mb-1 text-[12px] font-medium text-ink-600 dark:text-ink-400">Status</span>
-              <select className="db-input" value={status} onChange={(e) => setStatus(e.target.value)}>
+              <span className="block mb-1 text-[12px] font-medium text-ink-600 dark:text-ink-400">
+                Status
+              </span>
+              <select
+                className="db-input"
+                value={status}
+                onChange={(e) => setStatus(e.target.value)}
+              >
                 <option value="todo">todo</option>
                 <option value="in_progress">in progress</option>
                 <option value="blocked">blocked</option>
@@ -58,8 +67,14 @@ export function TaskCreateModal({ projectId, open, onClose }) {
               </select>
             </label>
             <label className="block">
-              <span className="block mb-1 text-[12px] font-medium text-ink-600 dark:text-ink-400">Priority</span>
-              <select className="db-input" value={priority} onChange={(e) => setPriority(e.target.value)}>
+              <span className="block mb-1 text-[12px] font-medium text-ink-600 dark:text-ink-400">
+                Priority
+              </span>
+              <select
+                className="db-input"
+                value={priority}
+                onChange={(e) => setPriority(e.target.value)}
+              >
                 <option value="low">low</option>
                 <option value="medium">medium</option>
                 <option value="high">high</option>
@@ -70,9 +85,11 @@ export function TaskCreateModal({ projectId, open, onClose }) {
             <p className="text-[12px] text-danger">{create.error.message}</p>
           )}
           <div className="flex justify-end gap-2 pt-2">
-            <Button variant="secondary" onClick={onClose}>Cancel</Button>
+            <Button variant="secondary" onClick={onClose}>
+              Cancel
+            </Button>
             <Button type="submit" disabled={create.isPending}>
-              {create.isPending ? 'Creating…' : 'Create task'}
+              {create.isPending ? "Creating…" : "Create task"}
             </Button>
           </div>
         </form>

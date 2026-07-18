@@ -40,7 +40,7 @@ services:
       postgres:
         condition: service_healthy
     ports:
-      - "${BACKEND_HOST_PORT}:${BACKEND_PORT}"   # host:container — direct curl/debug; the UI uses the gateway
+      - "${BACKEND_HOST_PORT}:${BACKEND_PORT}" # host:container — direct curl/debug; the UI uses the gateway
 
   frontend:
     build: ./frontend
@@ -48,7 +48,7 @@ services:
     depends_on:
       - backend
     ports:
-      - "${FRONTEND_HOST_PORT}:4173"   # vite preview serves on 4173 inside the container
+      - "${FRONTEND_HOST_PORT}:4173" # vite preview serves on 4173 inside the container
 
 volumes:
   pgdata:

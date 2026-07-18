@@ -1,17 +1,19 @@
-import { IconClock, IconUser, IconGripVertical } from '@tabler/icons-react';
-import { StatusBadge, PriorityBadge } from '../ui/Badge';
-import { Avatar } from '../ui/Avatar';
+import { IconClock, IconUser, IconGripVertical } from "@tabler/icons-react";
+import { StatusBadge, PriorityBadge } from "../ui/Badge";
+import { Avatar } from "../ui/Avatar";
 
 export function TaskCard({
   task,
-  assigneeName = '',
+  assigneeName = "",
   draggable = false,
   showStatus = true,
   onDragStart,
   onDragEnd,
   onClick,
 }) {
-  const due = task.due_date ? new Date(task.due_date).toLocaleDateString() : null;
+  const due = task.due_date
+    ? new Date(task.due_date).toLocaleDateString()
+    : null;
   return (
     <article
       draggable={draggable}
@@ -20,7 +22,7 @@ export function TaskCard({
       onClick={onClick}
       data-testid={`task-card-${task.id}`}
       className={`db-card px-4 py-3.5 hover:border-accent/40 transition group ${
-        draggable ? 'cursor-grab active:cursor-grabbing' : 'cursor-pointer'
+        draggable ? "cursor-grab active:cursor-grabbing" : "cursor-pointer"
       }`}
     >
       <div className="flex items-center gap-2">
@@ -32,7 +34,9 @@ export function TaskCard({
           />
         )}
         <span className="font-mono text-[11px] text-ink-400">#{task.id}</span>
-        <h3 className="text-[14px] font-medium flex-1 min-w-0 truncate">{task.title}</h3>
+        <h3 className="text-[14px] font-medium flex-1 min-w-0 truncate">
+          {task.title}
+        </h3>
         {showStatus && <StatusBadge status={task.status} />}
         {assigneeName && <Avatar name={assigneeName} size={22} />}
       </div>

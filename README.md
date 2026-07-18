@@ -15,8 +15,8 @@ browser  →  frontend (React)  →  backend (Go API)  →  database (Postgres)
 - **database** — Postgres, with some example projects and tasks loaded on first
   start.
 
-There's no login and no AI here on purpose. The whole point is to *see how the
-pieces connect*.
+There's no login and no AI here on purpose. The whole point is to _see how the
+pieces connect_.
 
 ---
 
@@ -44,7 +44,7 @@ docker network create devboard-net
 
 ### Step 2: Build the images
 
-The frontend and backend are *our* code, so we build an image for each. The
+The frontend and backend are _our_ code, so we build an image for each. The
 database is not our code — it's the official Postgres image — so there's
 nothing to build for it.
 
@@ -154,11 +154,11 @@ Stop it:
 docker compose down
 ```
 
-| Piece    | Open in browser / curl        | Notes                                   |
-| -------- | ----------------------------- | --------------------------------------- |
-| Frontend | http://localhost:8080         | the app; forwards `/api` to the backend |
-| Backend  | http://localhost:8081/health  | the Go API (the app uses it via `/api`) |
-| Postgres | localhost:5432                | user / password: `devboard` / `devboard`|
+| Piece    | Open in browser / curl       | Notes                                    |
+| -------- | ---------------------------- | ---------------------------------------- |
+| Frontend | http://localhost:8080        | the app; forwards `/api` to the backend  |
+| Backend  | http://localhost:8081/health | the Go API (the app uses it via `/api`)  |
+| Postgres | localhost:5432               | user / password: `devboard` / `devboard` |
 
 ---
 
@@ -203,15 +203,15 @@ so in a real project your secrets never get committed.
 
 The browser calls these as `/api/...`; the backend serves them at the root.
 
-| Method | Path                      | What it does                          |
-| ------ | ------------------------- | ------------------------------------- |
-| GET    | `/projects`               | list projects                         |
-| POST   | `/projects`               | create a project                      |
-| GET    | `/tasks?project_id=N`     | list tasks in a project               |
-| POST   | `/tasks`                  | create a task                         |
-| PATCH  | `/tasks/:id`              | update a task (e.g. change status)    |
-| GET    | `/search?q=&project_id=N` | search tasks by title                 |
-| GET    | `/health`                 | health check                          |
+| Method | Path                      | What it does                       |
+| ------ | ------------------------- | ---------------------------------- |
+| GET    | `/projects`               | list projects                      |
+| POST   | `/projects`               | create a project                   |
+| GET    | `/tasks?project_id=N`     | list tasks in a project            |
+| POST   | `/tasks`                  | create a task                      |
+| PATCH  | `/tasks/:id`              | update a task (e.g. change status) |
+| GET    | `/search?q=&project_id=N` | search tasks by title              |
+| GET    | `/health`                 | health check                       |
 
 ## Folder layout
 
@@ -237,6 +237,7 @@ To run your own self-hosted SonarQube server on your AWS EC2 instance:
 
 1. **Start the SonarQube Container**:
    Ensure Docker is installed on your EC2 instance, then run:
+
    ```bash
    docker run -itd --name SonarQube-Server -p 9000:9000 sonarqube:community
    ```
@@ -245,7 +246,6 @@ To run your own self-hosted SonarQube server on your AWS EC2 instance:
    - Make sure port `9000` is open in your **AWS EC2 Security Group** inbound rules.
    - Access `http://<YOUR_EC2_PUBLIC_IP>:9000` in your browser.
    - Log in using default credentials: Username: `admin` / Password: `admin` (you will be prompted to change it)
-
 
 ### How to configure SonarQube Secrets
 
@@ -268,10 +268,9 @@ To enable SonarQube scanning in your GitHub Actions pipeline:
 ### How to configure Docker Hub Credentials
 
 To allow the CI pipeline to build and push images to Docker Hub:
+
 1. Navigate to **Settings > Secrets and variables > Actions**.
 2. Under the **Variables** tab, add:
    - `DOCKERHUB_USERNAME`: Your Docker Hub username.
 3. Under the **Secrets** tab, add:
    - `DOCKERHUB_TOKEN`: A Personal Access Token (PAT) generated from Docker Hub.
-
-
