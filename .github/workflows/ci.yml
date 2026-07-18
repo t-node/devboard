@@ -28,3 +28,15 @@ jobs:
 
       - name: Check Prettier
         run: npm run format:check
+
+      - name: Docker Login
+        uses: docker/login-action@v4
+        with:
+          username: ${{ vars.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Docker Build and Push
+        uses: docker/build-push-action@v7
+        with:
+          context: ./frontend/Dockerfile
+          push: true
+          tags: $ {{ vars.DOCKERHUB_USERNAME}}/devboard-fe-master:latest
