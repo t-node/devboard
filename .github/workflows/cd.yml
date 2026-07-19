@@ -1,4 +1,4 @@
-#Goal: To Deploy the built images from CI Steps once the CI Workflow is Succeeded
+#Goal:  To Deploy the built images from CI Steps once the CI Workflow is Succeeded
 
 name: CD
 
