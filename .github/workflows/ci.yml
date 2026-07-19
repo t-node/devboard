@@ -5,6 +5,7 @@ name: CI
 on:
   push:
     branches: [advanced]
+  workflow_dispatch:
 defaults:
   run:
     working-directory: ./frontend
@@ -29,6 +30,12 @@ jobs:
       - name: Check Prettier
         run: npm run format:check
 
+      - name: Run tests
+        run: npm run test
+
+      - name: Build frontend
+        run: npm run build
+
       - name: Docker Login
         uses: docker/login-action@v4
         with:
@@ -50,10 +57,10 @@ jobs:
         uses: actions/setup-go@v6
         with:
           go-version: "1.23"
-          go-version-file: "go.mod"
-          cache-dependency-path: go.sum
+          go-version-file: backend/go.mod
+          cache-dependency-path: backend/go.sum
       - name: Run Go Formatter
-        run: go fmt
+        run: test -z "$(gofmt -l .)"
         working-directory: backend
 
       - name: Run Go Vet
@@ -61,7 +68,7 @@ jobs:
         working-directory: backend
 
       - name: Run Tests
-        run: go test
+        run: go test ./...
         working-directory: backend
 
       - name: Docker Login

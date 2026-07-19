@@ -185,6 +185,39 @@ make smoke     # quick check that everything works
 
 ---
 
+## CI → CD from the command line
+
+The GitHub workflows deploy only after **CI** has succeeded on the `advanced`
+branch. CI also supports a manual dispatch, so the complete remote pipeline can
+be started and watched from PowerShell:
+
+```powershell
+.\scripts\run-ci-cd.ps1
+```
+
+The script dispatches `ci.yml`, streams every CI job log, then waits for the
+`workflow_run` trigger in `cd.yml` and streams its deployment logs. It exits
+with an error at the failing stage, so CD is never attempted after a failed CI.
+
+Before the first run, authenticate the GitHub CLI in this repository:
+
+```powershell
+gh auth login -h github.com
+```
+
+The workflow files must be committed and pushed to `advanced`; GitHub Actions
+runs the remote branch, not uncommitted files on the local machine. The CD job
+also requires an online self-hosted runner with Docker Compose, plus the
+repository `DOCKERHUB_USERNAME` variable and `DOCKERHUB_TOKEN` secret.
+
+To allow up to an hour for a queued self-hosted deployment:
+
+```powershell
+.\scripts\run-ci-cd.ps1 -TimeoutSeconds 3600
+```
+
+---
+
 ## Settings live in `.env`
 
 All the changeable values (passwords, ports) live in one file. The first time,
