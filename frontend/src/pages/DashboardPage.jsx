@@ -1,15 +1,15 @@
-import { Link } from "react-router-dom";
 import {
-  IconArrowRight,
-  IconCircleCheck,
-  IconAlertCircle,
-  IconClock,
-  IconCheck,
   IconActivity,
+  IconAlertCircle,
+  IconArrowRight,
+  IconCheck,
+  IconCircleCheck,
+  IconClock,
 } from "@tabler/icons-react";
-import { useProjects, useTasks } from "../hooks/useTasks";
-import { Button } from "../components/ui/Button";
+import { Link } from "react-router-dom";
 import { StatusBadge } from "../components/ui/Badge";
+import { Button } from "../components/ui/Button";
+import { useProjects, useTasks } from "../hooks/useTasks";
 
 export function DashboardPage() {
   const { data: projData } = useProjects();
@@ -38,7 +38,7 @@ export function DashboardPage() {
             </span>
           </div>
           <h1 className="text-[30px] font-semibold leading-none tracking-[-0.6px]">
-            Good to see you, Shubham.
+            Good to see you, Vevin Moza.
           </h1>
           <p className="text-[14px] text-ink-600 dark:text-ink-400 mt-2">
             Here's where your work stands today.
