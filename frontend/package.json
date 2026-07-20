@@ -6,14 +6,9 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-<<<<<<< HEAD
-    "lint": "eslint .",
-    "test": "vitest run",
-=======
     "preview": "vite preview",
     "lint": "eslint src",
     "test": "vitest run --reporter=verbose",
->>>>>>> master
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },
