@@ -3,22 +3,14 @@
 name: CD
 
 on:
-  # workflow_run:
-  #   workflows: ["CI"]
-  #   types: [completed]
-  #   branches:
-  #     - "advanced"
-  workflow_dispatch:
+  workflow_call: {}
 
 jobs:
   deploy:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: self-hosted
     steps:
       - name: Code Checkout
         uses: actions/checkout@v7
-        with:
-          ref: ${{ github.event.workflow_run.head_sha }}
       - name: Copy Example Env to main env
         run: cp .env.example .env
       - name: Docker Login
