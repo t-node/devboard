@@ -38,7 +38,7 @@ export function DashboardPage() {
             </span>
           </div>
           <h1 className="text-[30px] font-semibold leading-none tracking-[-0.6px]">
-            Good to see you, Vevin Moza.
+            Good to see you, Ajay Moza.
           </h1>
           <p className="text-[14px] text-ink-600 dark:text-ink-400 mt-2">
             Here's where your work stands today.
