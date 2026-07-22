@@ -11,6 +11,8 @@ jobs:
       matrix:
         go: ["1.22", "1.23", "1.24"]
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
       - name: Setup Go
         uses: actions/setup-go@v6
         with:
