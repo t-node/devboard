@@ -37,7 +37,7 @@ jobs:
         run: npm run build
 
       - name: Code Quality
-        uses: .github/workflows/code-quality.yml
+        uses: ./.github/workflows/code-quality.yml
 
       - name: Docker Login
         uses: docker/login-action@v4
