@@ -2,10 +2,13 @@
 name: Go Linter
 
 on:
-  workflow_dispatch:
+  schedule:
+    - cron: "15 4 * * *"
 
 jobs:
   code-format:
+    env:
+      DOCKERHUB_USER: ${{ vars.DOCKERHUB_USERNAME }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
