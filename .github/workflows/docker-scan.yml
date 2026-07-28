@@ -27,7 +27,7 @@ jobs:
 
       - name: Docker Build ${{ matrix.folders }}
         run: docker build -t ${{ vars.DOCKERHUB_USERNAME }}//devboard-${{ matrix.folders }}:latest  .
-        working-directory: $ {{ matrix.folders }}
+        working-directory: ${{ matrix.folders }}
 
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@v0.36.0
@@ -38,4 +38,3 @@ jobs:
           ignore-unfixed: true
           vuln-type: "os,library"
           severity: "CRITICAL,HIGH"
-          working-directory: ${{ matrix.folders }}
