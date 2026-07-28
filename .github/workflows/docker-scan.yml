@@ -17,4 +17,4 @@ jobs:
       - name: ${{ matrix.folders}} Dockerfile lint
         uses: hadolint/hadolint-action@v3.1.0
         with:
-          dockerfile: ${{ matrix.folders}}/Dockerfilesfas
+          dockerfile: ${{ matrix.folders}}/Dockerfile
