@@ -21,7 +21,7 @@ jobs:
         run: go install golang.org/x/vuln/cmd/govulncheck@v1.1.4
       - name: GoVulncheck
         continue-on-error: true
-        run: govulncheck ./...
+        run: govulncheck ./... > govulncheck-report.txt
         working-directory: backend
 
       - name: Upload Report to Artifacts
