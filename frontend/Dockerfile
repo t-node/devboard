@@ -1,3 +1,5 @@
+# syntax=docker/dockerfile:1
+
 # Stage 1 — build the app
 FROM dhi.io/node:26-dev AS build
 
@@ -5,27 +7,25 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install --legacy-peer-deps
-
-# Install vite explicitly if not already in package.json
-RUN npm list vite > /dev/null 2>&1 || npm install --no-save vite@5.4.11
+# Reproducible, lockfile-exact install (vite must be a devDependency in package.json)
+RUN npm ci --legacy-peer-deps
 
 COPY . .
 
 RUN npm run build
 
-# Stage 2 — distroless runtime (minimal, secure)
+# Stage 2 — minimal runtime (hardened DHI base)
 FROM dhi.io/node:26
 
 WORKDIR /app
 
-# Copy built files from builder
-COPY --from=build /app/dist ./dist
+# Copy built assets and deps with correct ownership
+COPY --from=build --chown=nonroot:nonroot /app/dist ./dist
+COPY --from=build --chown=nonroot:nonroot /app/node_modules ./node_modules
+COPY --from=build --chown=nonroot:nonroot /app/vite.preview.config.js ./vite.config.js
 
-# Copy all node_modules from builder (includes vite)
-COPY --from=build /app/node_modules ./node_modules
-
-COPY vite.preview.config.js ./vite.config.js
+# DHI image runs as nonroot by default; explicit for clarity
+USER nonroot
 
 EXPOSE 4173
 
