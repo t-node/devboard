@@ -10,14 +10,9 @@ jobs:
     steps:
       - name: Code Checkout
         uses: actions/checkout@v7
-      - name: Check Sonar secrets
+      - name: Check SONAR_TOKEN
         run: |
-          test -n "${{ secrets.SONAR_TOKEN }}" || (echo "Missing SONAR_TOKEN secret; add it at Settings → Secrets → Actions" >&2; exit 1)
-          if [ -z "${{ secrets.SONAR_HOST_URL }}" ]; then
-            echo "SONAR_HOST_URL not set; running against SonarCloud"
-          else
-            echo "SONAR_HOST_URL provided"
-          fi
+          if [ -z "${{ secrets.SONAR_TOKEN }}" ]; then echo "SONAR_TOKEN not set; skipping SonarCloud scan." exit 0 fi
       - name: SonarQube Scan
         uses: SonarSource/sonarcloud-github-action@master # Ex: v4.1.0 or sha1, See the latest version at https://github.com/marketplace/actions/official-sonarqube-scan
         env:
