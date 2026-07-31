@@ -8,27 +8,13 @@ jobs:
   sonarqube:
     runs-on: ubuntu-latest
     steps:
-      - name: Check Sonar secrets (safe runtime check)
-        # pass the secret into the step environment so we can test its presence at runtime
+      - name: Code Checkout
+        uses: actions/checkout@v7
+        with:
+          # Disabling shallow clones is recommended for improving the relevancy of reporting
+          fetch-depth: 0
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v8.2.1 # Ex: v4.1.0 or sha1, See the latest version at https://github.com/marketplace/actions/official-sonarqube-scan
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-        run: |
-          # Do a non-leaking presence check
-          if [ -z "$SONAR_TOKEN" ]; then
-            echo "Missing SONAR_TOKEN secret; add it at Settings → Secrets → Actions" >&2
-            exit 1
-          else
-            echo "SONAR_TOKEN is set (ok)"
-          fi
-          if [ -z "$SONAR_HOST_URL" ]; then
-            echo "SONAR_HOST_URL not set; running against SonarCloud"
-          else
-            echo "SONAR_HOST_URL provided"
-          fi
-
-      - name: SonarQube Scan
-        uses: SonarSource/sonarcloud-github-action@v1 # pin to stable release
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_URL: ${{ secrets.SONAR_HOST_URL }}
