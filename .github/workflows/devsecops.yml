@@ -27,14 +27,18 @@ jobs:
 
   push-to-docker-hub:
     uses: ./.github/workflows/docker-push.yml
-    needs: [
+    needs:
+      [
         code-quality,
         code-tests,
-        # sonar-scan,
         docker-checks,
         dependency-check,
-        # sonar-scan,
         code-tests,
         secret-scanning,
       ]
+    secrets: inherit
+
+  deploy:
+    uses: ./.github/workflows/deploy.yml
+    needs: [push-to-docker-hub]
     secrets: inherit
